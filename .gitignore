@@ -1,0 +1,21 @@
+# OS / editor junk
+.DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Codex sandbox tooling (account-scoped project id; not needed to run the site)
+.openai/
+
+# Local secrets / credentials (the site uses none; kept as a guard)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Logs & local scratch
+*.log
+_tmp-*.html
