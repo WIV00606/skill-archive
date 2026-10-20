@@ -50,8 +50,14 @@ const t=parseJump(v);
 if(t&&!t.rest){if(t.char)char=t.char;if(t.cat)current=t.cat;jumped=t;query='';renderChar();document.querySelector('#kit').scrollIntoView({behavior:'smooth',block:'start'});if(t.level&&(current==='mr'||current==='will'))flashLevel(t.level);return;}
 jumped=null;query=(t&&t.rest?t.rest:v).toLowerCase();if(t&&t.char&&t.char!==char){char=t.char;renderChar();}else render();document.querySelector('#kit').scrollIntoView({behavior:'smooth',block:'start'});}
 function pickSug(i){const t=sugItems[i===undefined?sugIndex:i];if(!t)return;search.value=t.key;runSearch();}
+function setArt(d){const el=document.querySelector('#hero-art');el.alt=d.artAlt;
+if(el.getAttribute('src')===d.art){el.style.opacity='1';return;}
+el.style.opacity='0';
+const pre=new Image();
+pre.onload=pre.onerror=()=>{el.src=d.art;el.style.opacity='1';};
+pre.src=d.art;}
 function renderChar(){const d=D();document.title=`${d.title} — Celestial Archive`;
-document.querySelector('#hero-art').src=d.art;document.querySelector('#hero-art').alt=d.artAlt;
+setArt(d);
 document.querySelector('#hero-title').textContent=d.title;
 document.querySelector('#rarities').innerHTML=d.rarities.map((r,i)=>`<span${i>=2?' class="gold"':''}>${r}</span>`).join('');
 document.querySelector('#hero-tagline').innerHTML=d.tagline;
@@ -80,3 +86,4 @@ pop.addEventListener('mousedown',e=>e.preventDefault());
 pop.addEventListener('click',e=>{const li=e.target.closest('li');if(li)pickSug(Number(li.dataset.i));});
 document.addEventListener('click',e=>{if(!e.target.closest('.search'))closeSug();});
 renderChar();
+Object.values(CHARACTERS).forEach(c=>{const i=new Image();i.src=c.art;});
